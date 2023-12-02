@@ -54,13 +54,13 @@ if button_clicked and image is not None and n is not None:
     # # Load it
     
 
-    storage_context = StorageContext.from_defaults(
-         vector_store=text_store, persist_dir="./storage"
+    storage_context = StorageContext.from_defaults(vector_store=text_store)
+
+# Create the MultiModal index
+    documents = SimpleDirectoryReader("./mixed_wiki/").load_data()
+    index = MultiModalVectorStoreIndex.from_documents(
+    documents, storage_context=storage_context, image_vector_store=image_store
     )
-    index = load_index_from_storage(storage_context, image_store=image_store)
-    
-    
-    index = load_index_from_storage(storage_context, image_store=image_store)
     openai_mm_llm = OpenAIMultiModal(
     model="gpt-4-vision-preview", api_key=OPENAI_API_TOKEN, max_new_tokens=1500
 )
@@ -86,7 +86,7 @@ if button_clicked and image is not None and n is not None:
         else:
                     display_source_node(res_node, source_length=200)
 
-    st.write(retrieved_image)
+    
 
     
     for i in retrieved_image:
@@ -95,6 +95,9 @@ if button_clicked and image is not None and n is not None:
 
             # Display image
         st.image(image, use_column_width=True)###
-   
+    import shutil
+    folder_path = "qdrant_mm_db"
+    shutil.rmtree(folder_path)
+    shutil.rmtree("uploaded_images")
                     
                 
