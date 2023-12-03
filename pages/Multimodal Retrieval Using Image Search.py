@@ -23,7 +23,7 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_TOKEN
 # load DB
 
 
-st.title('MultiModal Image Retrieveal')
+st.title('MultiModal Retrieveal using Image Search')
 
 image = st.file_uploader("Upload Image", type = ['jpg'])
 n = st.number_input('Choose the number of similar images to be displayed',min_value=1,max_value=10,value=3)
@@ -47,11 +47,6 @@ if button_clicked and image is not None and n is not None:
     text_store = QdrantVectorStore(client=client,collection_name="text_collection")
     image_store = QdrantVectorStore(client=client,collection_name="image_collection")
    
-
-    # Save it
-    # index.storage_context.persist(persist_dir="./storage")
-
-    # # Load it
     
 
     storage_context = StorageContext.from_defaults(vector_store=text_store)
@@ -75,7 +70,11 @@ if button_clicked and image is not None and n is not None:
                 similarity_top_k=n, image_similarity_top_k=n
             )
             # retrieve more information from the GPT4V response
-    retrieval_results = retriever_engine.retrieve(response_1.text[:MAX_TOKENS])
+    
+    if image is not None   :     
+     retrieval_results = retriever_engine.retrieve(response_1.text[:MAX_TOKENS])
+     
+    
 
    
     st.write()
