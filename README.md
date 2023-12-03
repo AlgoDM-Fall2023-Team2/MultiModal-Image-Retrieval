@@ -1,5 +1,7 @@
 # MultiModal Retrieval Model
 
+**Access the Streamlit application:** [Click here](https://multimodal-image-retrieval.streamlit.app/)
+
 
 Explore the power of multimodal retrieval! Our app allows you to find visually similar images and discover images based on text descriptions.
 
