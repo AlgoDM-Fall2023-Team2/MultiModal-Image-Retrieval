@@ -118,3 +118,4 @@ wcwidth==0.2.12
 wrapt==1.16.0
 yarl==1.9.3
 zipp==3.17.0
+git+https://github.com/openai/CLIP.git
